@@ -10,13 +10,28 @@ const User= new mongoose.Schema(
             type:String,
             required:true,
             unique:true,
+            lowercase: true,
             trim: true
         },
         password:{
             type:String,
+            select: false,
         },
         avatar :{
             type:String
+        },
+        provider:{
+            type:String,
+            enum:["local","facebook","google"],
+            default:"local"
+        },
+        provider_id:{
+            type:String,
+            index:true
+        },
+        isOTPEmail:{
+            type:Boolean,
+            default:false
         },
         isActive:{
             type:Boolean,
@@ -25,7 +40,20 @@ const User= new mongoose.Schema(
         role:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"Role",
-        }
+        },
+        lastLogin:{
+            type:Date,
+        },
+        deletedAt:{
+            type:Date,
+            default:null
+        },
+        createdBy: {
+            type: String,
+            enum: ["user", "admin"],
+            default: "user",
+        },
+
     },
     {timestamps:true,versionKey:false}
 )

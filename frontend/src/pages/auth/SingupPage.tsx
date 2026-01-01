@@ -1,14 +1,17 @@
 
 import CarouselImage from '../../components/auth/CarouselImage'
-import Step from '../../components/auth/Step'
+
 
 import { Link } from 'react-router-dom'
 import Formsignup from '../../components/auth/Formsignup'
 import OTP from '../../components/auth/OTP'
+import SignupSuccess from '../../components/auth/SignupSuccess'
+import { useState } from 'react'
+import Step from '../../components/auth/Step'
 
 
 const SingupPage = () => {
-
+const [current,setCurrent]=useState<number>(0)
 
   return (
     <div className="w-full h-full ">
@@ -21,12 +24,13 @@ const SingupPage = () => {
                     <h1 className="text-5xl font-bold">HOAN</h1>
                     <p className="text-2xl font-bold " >Welcome to HOAN</p>
                     <p className=" mb-5">Đăng kí ngay để có trải nghiệm mua sắm tuyệt vời với chúng mình.</p>
-                    <Step/>
+                    <Step current={current} />
                 </div>
-                <div className="w-[50%]">
-                  {/* <Formsignup/> */}
-                  <OTP/>
-                    <p className="mt-8 text-center">Bạn chưa có tài khoản? <Link to='/signin' className="text-blue-700 underline">Đăng ký ngay</Link></p>
+                <div className="w-[50%] text-center">
+                  { current===0 && <Formsignup onNext ={()=>setCurrent(1)} /> }
+                  {current===1&& <OTP onNext ={()=>setCurrent(2)} /> }
+                {current===2 && <SignupSuccess/>}
+                    <p className="mt-8 text-center">Bạn có tài khoản? <Link to='/signin' className="text-blue-700 underline">Đăng nhập ngay</Link></p>
                 </div>
             </div>
        </div>

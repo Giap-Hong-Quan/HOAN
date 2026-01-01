@@ -1,8 +1,10 @@
 import { Steps } from "antd";
 
-const current = 2;
-
-const items = [
+type StepNumber ={
+  current:number
+}
+const Step = ({current}:StepNumber) => {
+  const items = [
   {
     title: (
       <span
@@ -43,8 +45,7 @@ const items = [
     ),
   },
 ];
-
-const Step = () => (
+return(
   <Steps
     current={current}
     titlePlacement="vertical"
@@ -70,6 +71,7 @@ const Step = () => (
 
     "
   />
-);
+)
+};
 
 export default Step;

@@ -1,9 +1,11 @@
 import { Eye, EyeOff, Lock, User } from 'lucide-react';
 import React, { useState } from 'react'
-
-const Formsignup = () => {
+type FormSignUpProps ={
+  onNext :()=>void 
+}
+const Formsignup = ({onNext}:FormSignUpProps) => {
     const [showPassword, setShowPassword] = useState(false);
-const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   return (
     <>
           <form className="w-full space-y-5">
@@ -73,7 +75,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
                     </div>
                     </div>
                     {/* Submit Button */}
-                    <button className="w-full py-4 bg-[#f5f5f5] text-[#d9d9d9] font-bold rounded-2xl hover:bg-black hover:text-white transition-colors mt-4">
+                    <button onClick={onNext}  className="w-full py-4 bg-[#f5f5f5] text-[#d9d9d9] font-bold rounded-2xl hover:bg-black hover:text-white transition-colors mt-4">
                     Đăng ký
                     </button>
                     </form>    
