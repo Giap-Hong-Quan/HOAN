@@ -1,5 +1,5 @@
 import { sendOtpService, signinService, signupService, verifyOtpService } from "../services/authService.js"
-
+// đăng ký
 export const signupController = async (req,res)=>{
     try {
         const result= await signupService(req.body);
@@ -8,6 +8,7 @@ export const signupController = async (req,res)=>{
         return res.status(400).json({message:error.message || " Lỗi hệ thống"});
     }
 }
+// dăng nhập
 export const signinController=async (req,res)=>{
     try {
         const result =await signinService(req.body);

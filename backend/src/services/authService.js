@@ -40,23 +40,24 @@ export const signupService =async (payload)=>{
 export const signinService =async (payload)=>{
     try {
         const {email,password}=payload;
-        if(!email|| !password){throw new Error("Chưa nhập đủ thông tin")};
-        const exitUser= await User.findOne({email:email}).populate("role");
+        if(!email || !password){throw new Error("Chưa nhập đủ thông tin")};
+        const exitUser= await User.findOne({email:email}).select("+password").populate("role");
         if(!exitUser){
             throw new Error("Email không chính xác");
         }
-        const isMatch = comparePassword(password,exit.password)
+        if(exitUser.isOTPEmail === false){throw new Error("Tài khoản chưa đc xác minh otp")};
+        const isMatch =await comparePassword(password,exitUser.password)
         if (!isMatch) {
         throw new Error("Email hoặc mật khẩu không chính xác");
             }
         const accToken = accessToken(
             {
-                id:exit._id,
+                id:exitUser._id,
                 date :new Date(),
-                role:exit.role.name
+                role:exitUser.role.name
             }
         )
-        const updateACtive = await User.findByIdAndUpdate(exit._id,{isActive:true,lastLogin:new Date(),})
+         await User.findByIdAndUpdate(exitUser._id,{isActive:true,lastLogin:new Date(),})
         return {accToken} 
     } catch (error) {
         console.error("lỗi",error)
