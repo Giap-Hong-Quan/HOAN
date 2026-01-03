@@ -2,3 +2,4 @@
 node_modules/
 # File nhạy cảm
 .env
+serviceAccountKey.json

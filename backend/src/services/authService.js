@@ -4,7 +4,6 @@ import { comparePassword, hashPassword } from "../utils/password.js";
 import { accessToken } from "../utils/jwt.js";
 import Verification from "../models/Verification.js";
 import { sendEmail } from "./senEmail.js";
-
 // Đăng ký
 export const signupService =async (payload)=>{
     try{ 
@@ -58,7 +57,7 @@ export const signinService =async (payload)=>{
             }
         )
          await User.findByIdAndUpdate(exitUser._id,{isActive:true,lastLogin:new Date(),})
-        return {accToken} 
+        return {accToken}
     } catch (error) {
         console.error("lỗi",error)
         throw error;

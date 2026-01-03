@@ -1,11 +1,21 @@
 
 import CarouselImage from "../../components/auth/CarouselImage"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Formsignin from "../../components/auth/Formsignin"
+import { loginWithGoogle } from "../../service/auth"
 
 
 const SigninPage = () => {
-  
+  const navigate=useNavigate()
+  const handleLoginGG=async ()=>{
+    try {
+      const data= await loginWithGoogle();
+      console.log("Access Token:", data.accessToken);
+        navigate("/");
+    } catch (error) {
+            console.error(error);
+    }
+  }
   return (
     // container
     <div className="w-full h-full ">
@@ -25,7 +35,7 @@ const SigninPage = () => {
                 <div className="flex flex-col gap-7">
                   <p className="font-bold">Đăng nhập nhanh với</p>
                   <div className="flex items-center justify-center gap-16">
-                    <button className="w-12 h-12">
+                    <button onClick={()=>handleLoginGG()} className="w-12 h-12">
                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" alt="FB" />
                     </button>
                     <button className="w-12 h-12">
