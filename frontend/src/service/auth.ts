@@ -11,6 +11,15 @@ export const loginWithGoogle =async ()=>{
         Authorization: `Bearer ${idToken}`
     }
     })
-    localStorage.setItem("accessToken",res.data.accessToken)
+    localStorage.setItem("astkn",res.data.data.token)
     return res.data;
 }
+
+// export const loginWithLocal =async()=>{
+//     try {
+//         const result =await apiClient.post("/auth/singin");
+
+//     } catch (error) {
+//         console.log("lôi",error)
+//     }
+// }

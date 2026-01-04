@@ -49,15 +49,15 @@ export const signinService =async (payload)=>{
         if (!isMatch) {
         throw new Error("Email hoặc mật khẩu không chính xác");
             }
-        const accToken = accessToken(
+        const token = accessToken(
             {
                 id:exitUser._id,
                 date :new Date(),
                 role:exitUser.role.name
             }
         )
-         await User.findByIdAndUpdate(exitUser._id,{isActive:true,lastLogin:new Date(),})
-        return {accToken}
+         await User.findByIdAndUpdate(exitUser._id,{isActive:true,lastLogin:new Date(),provider:'local',provider_id:null})
+        return {token}
     } catch (error) {
         console.error("lỗi",error)
         throw error;

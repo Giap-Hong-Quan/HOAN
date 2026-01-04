@@ -5,6 +5,7 @@ import { accessToken } from "../utils/jwt.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import Role from "../models/Role.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const serviceAccountPath = path.join(__dirname, "../../serviceAccountKey.json");
@@ -66,6 +67,7 @@ export const loginGoogleController =async (req,res)=>{
         const {email,name,picture,uid}=decoded;
         // Kiểm tra user trong database của bạn
         let exitUser = await User.findOne({ email }).populate("role");
+        const roleId= await Role.findOne({name:"user"})
         if(!exitUser){
             await User.create(
                 {
@@ -77,6 +79,7 @@ export const loginGoogleController =async (req,res)=>{
                     isOTPEmail:true,
                     isActive:true,
                     lastLogin :new Date(),
+                    role:roleId
                 }
             )
         }else{
@@ -92,14 +95,14 @@ export const loginGoogleController =async (req,res)=>{
             await User.findByIdAndUpdate(exitUser._id,update)
         }
         exitUser = await User.findOne({ email }).populate("role");
-        const accToken = accessToken(
+        const tokens = accessToken(
             {
                 id:exitUser._id,
                 date :new Date(),
                 role:exitUser.role.name
             }
         ) 
-        return res.status(200).json({message:"Login thành công",data:{accToken}})
+        return res.status(200).json({message:"Login thành công",data:{token:tokens}})
     } catch (error) {
         return res.status(400).json({message:error.message||"Lỗi hệ thống"})
     }

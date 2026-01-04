@@ -10,10 +10,12 @@ const SigninPage = () => {
   const handleLoginGG=async ()=>{
     try {
       const data= await loginWithGoogle();
-      console.log("Access Token:", data.accessToken);
+      console.log("Access Token:", data.data.token);
+      if(data){
         navigate("/");
+      }
     } catch (error) {
-            console.error(error);
+       console.error(error);
     }
   }
   return (
