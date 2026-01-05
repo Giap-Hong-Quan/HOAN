@@ -20,3 +20,11 @@ export const verifyToken = async (req,res,next)=>{
     });
     }
 }
+
+export const verifyTokenAdmin = async (req,res,next)=>{
+    try {
+        
+    } catch (error) {
+        
+    }
+}

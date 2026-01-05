@@ -14,7 +14,7 @@ const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath));
 export const signupController = async (req,res)=>{
     try {
         const result= await signupService(req.body);
-    return res.status(201).json({message:"đăng ký thành công",data:result})
+    return res.status(201).json({message:"đăng ký thành công",user:result})
     } catch (error) {
         return res.status(400).json({message:error.message || " Lỗi hệ thống"});
     }
@@ -23,7 +23,7 @@ export const signupController = async (req,res)=>{
 export const signinController=async (req,res)=>{
     try {
         const result =await signinService(req.body);
-        return res.status(200).json({message:"Đăng nhập thành công",data:result})
+        return res.status(200).json({message:"Đăng nhập thành công",token:result})
     } catch (error) {
         return res.status(400).json({message:error.message||"Lỗi hệ thống"})
     }
@@ -36,7 +36,7 @@ export const sendOtpController =async (req,res)=>{
             return res.status(400).json({ message: "Thiếu email" });
         }
         const result =await sendOtpService(email);
-        return res.status(200).json({message:result});
+        return res.status(200).json(result);
     } catch (error) {
         return res.status(400).json({message:error.message||"Lỗi hệ thống"})
     }

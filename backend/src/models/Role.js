@@ -5,12 +5,11 @@ const Role = new mongoose.Schema(
         name:{
             type:String,
             require:true,
-            enum:['admin',"user"],default:"user",
-             trim: true,
+            enum:['user',"staff","admin"],default:"user",
+            trim: true,
             lowercase: true 
         },
     },
     {timestamps:true,versionKey:false}
 )
-const role = mongoose.model("Role",Role);
-export default role;
+export default mongoose.model("Role",Role);

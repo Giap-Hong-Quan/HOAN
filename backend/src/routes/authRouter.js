@@ -3,7 +3,7 @@ import { signinController, signupController,sendOtpController, verifyOtpControll
 const authRouter =express.Router();
 authRouter.post("/signup",signupController)
 authRouter.post("/signin",signinController)
-authRouter.post("/otp",sendOtpController)
+authRouter.post("/sendOtp",sendOtpController)
 authRouter.post("/verifyOTp",verifyOtpController)
 authRouter.post("/login-gg",loginGoogleController)
 export default authRouter;

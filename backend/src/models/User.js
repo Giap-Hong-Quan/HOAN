@@ -13,12 +13,18 @@ const User= new mongoose.Schema(
             lowercase: true,
             trim: true
         },
+        phone: { 
+            type: String,
+             trim: true ,
+             default:null
+            },
         password:{
             type:String,
             select: false,
         },
         avatar :{
-            type:String
+            type:String,
+            default:null
         },
         provider:{
             type:String,
@@ -27,7 +33,8 @@ const User= new mongoose.Schema(
         },
         provider_id:{
             type:String,
-            index:true
+            index:true,
+            default:null
         },
         isOTPEmail:{
             type:Boolean,
@@ -51,12 +58,42 @@ const User= new mongoose.Schema(
         },
         createdBy: {
             type: String,
-            enum: ["user", "admin"],
+            enum: ["user", "staff","admin"],
             default: "user",
         },
-
+        addresses:[
+            {
+                receiverName: String,
+                receiverPhone: String,
+                province: String,
+                district: String,
+                ward: String,
+                detail: String,
+                isDefault: { type: Boolean, default: false },
+            }
+        ],
+        wishlist: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Product",
+            },
+        ],
+        accumulated_points: { type: Number, default: 0 },
+        membership_tier: {
+            type: String,
+            enum: [
+                "newbie",
+                "bronze",
+                "silver",
+                "gold",
+                "platinum",
+                "diamond",
+                "black-diamond"
+            ],
+            default: "newbie",
+        },
+        branch: { type: mongoose.Schema.Types.ObjectId, ref: "Branch", default: null },
     },
     {timestamps:true,versionKey:false}
 )
-const user=mongoose.model("User",User);
-export default user;
+export default mongoose.model("User",User);

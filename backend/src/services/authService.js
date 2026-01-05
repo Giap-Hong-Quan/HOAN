@@ -57,7 +57,7 @@ export const signinService =async (payload)=>{
             }
         )
          await User.findByIdAndUpdate(exitUser._id,{isActive:true,lastLogin:new Date(),provider:'local',provider_id:null})
-        return {token}
+        return token
     } catch (error) {
         console.error("lỗi",error)
         throw error;
