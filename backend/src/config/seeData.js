@@ -3,7 +3,7 @@ export const seedData =async ()=>{
     try {
         const role =[
             {name:"user"},
-            {name:"staff"},
+            {name:"branch"},
             {name:"admin"}
         ]
             for(const i of role){

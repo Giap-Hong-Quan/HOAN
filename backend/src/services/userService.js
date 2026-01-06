@@ -4,7 +4,7 @@ import { hashPassword } from "../utils/password.js";
 
 //get all
 export const getAllUserService =async()=>{
-    const allUser= await User.find().select("-password");
+    const allUser= await User.find().select("-password -branch");
     if(!allUser) throw new Error("Không lấy được tất cả user")
     return allUser;
 }
@@ -29,8 +29,7 @@ export const updateUserByIdService =async (userId ,payload)=>{
   return updateUSer;
 }
 // create usser ain damin
-export const createUserService = async (payload)=>{
-  const {full_name,email,password,roleId}=payload;
+export const createUserService = async ({full_name,email,password,roleId,branch})=>{
   if(!full_name||!email||!password||!roleId){throw new Error ("Vui lòng nhập đầy đủ thông tin")};
   const exitUser= await User.findOne({email});
   if(exitUser){throw new Error("Email đã tồn tại")}
@@ -40,10 +39,10 @@ export const createUserService = async (payload)=>{
       email,
       password:await hashPassword(password),
       role:roleId,
-      createdBy:"admin"
+      createdBy:"admin",
+      isOTPEmail: true,
+      branch:branch||null
     }
   )
-  if(createUser){
-    return {message:"Tạo tài khoản thành công"}
-  }
+  return createUser;
 }

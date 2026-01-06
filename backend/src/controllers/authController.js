@@ -107,3 +107,12 @@ export const loginGoogleController =async (req,res)=>{
         return res.status(400).json({message:error.message||"Lỗi hệ thống"})
     }
 }
+//get profile\
+//get by id
+export const getProfileController =async(req,res)=>{
+    try {
+        return res.status(200).json({message:"Get user thành công",data:req.user})
+    } catch (error) {
+        return res.status(400).json({message:error.message||"Lỗi hệ thống !"})
+    }
+}

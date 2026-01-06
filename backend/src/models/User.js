@@ -58,7 +58,7 @@ const User= new mongoose.Schema(
         },
         createdBy: {
             type: String,
-            enum: ["user", "staff","admin"],
+            enum: ["user","admin"],
             default: "user",
         },
         addresses:[
