@@ -23,7 +23,7 @@ export const signupController = async (req,res)=>{
 export const signinController=async (req,res)=>{
     try {
         const result =await signinService(req.body);
-        return res.status(200).json({message:"Đăng nhập thành công",token:result})
+        return res.status(201).json({message:"Đăng nhập thành công",token:result})
     } catch (error) {
         return res.status(400).json({message:error.message||"Lỗi hệ thống"})
     }
@@ -36,7 +36,7 @@ export const sendOtpController =async (req,res)=>{
             return res.status(400).json({ message: "Thiếu email" });
         }
         const result =await sendOtpService(email);
-        return res.status(200).json(result);
+        return res.status(201).json(result);
     } catch (error) {
         return res.status(400).json({message:error.message||"Lỗi hệ thống"})
     }
@@ -46,7 +46,7 @@ export const verifyOtpController =async (req,res)=>{
     try {
         const { email, otp } = req.body;
         const result =await verifyOtpService( email, otp )
-        return res.status(200).json(result)
+        return res.status(201).json(result)
     } catch (error) {
         return res.status(400).json({message:error.message||"Lỗi hệ thống"})
     }
@@ -102,7 +102,7 @@ export const loginGoogleController =async (req,res)=>{
                 role:exitUser.role.name
             }
         ) 
-        return res.status(200).json({message:"Login thành công",data:{token:tokens}})
+        return res.status(201).json({message:"Login thành công",data:{token:tokens}})
     } catch (error) {
         return res.status(400).json({message:error.message||"Lỗi hệ thống"})
     }
@@ -111,7 +111,7 @@ export const loginGoogleController =async (req,res)=>{
 //get by id
 export const getProfileController =async(req,res)=>{
     try {
-        return res.status(200).json({message:"Get user thành công",data:req.user})
+        return res.status(200).json({message:"Get user thành công",profile:req.user})
     } catch (error) {
         return res.status(400).json({message:error.message||"Lỗi hệ thống !"})
     }
