@@ -57,43 +57,43 @@ export const getAllUserService =async(page=1,sizePage=10,filter={})=>{
             sizePage:limit
           };
 }
-
-
-
 //delete 
 export const deleteUserByIdService= async(userId)=>{
-    const deleteUser = await User.findByIdAndDelete(userId);
+    const deleteUser = await User.findByIdAndUpdate(
+      userId,
+      {deletedAt:new Date()},
+      {new:true}
+    );
     if(!deleteUser) throw new Error ("Xóa không thành công")
     return deleteUser; // xóa thành công
 }
 // update
 export const updateUserByIdService =async (userId ,payload)=>{
-  const{full_name,email,role}=payload;
+  const{full_name,email}=payload;
   if(!full_name||!email){throw new Error ("Vui lòng nhập đầy đủ thông tin")};
-  const roleId=await Role.findOne({name:"user"})
   const data={
     full_name,
-    email,
-    role:role||roleId._id
+    email
   }
   const updateUSer =await User.findByIdAndUpdate(userId,data,  { new: true } );
   if(!updateUSer){throw new Error ("Cập nhật thất bại")}
   return updateUSer;
 }
 // create usser ain damin
-export const createUserService = async ({full_name,email,password,roleId,branch})=>{
-  if(!full_name||!email||!password||!roleId){throw new Error ("Vui lòng nhập đầy đủ thông tin")};
+export const createUserService = async ({full_name,email,password})=>{
+  if(!full_name||!email||!password){throw new Error ("Vui lòng nhập đầy đủ thông tin")};
   const exitUser= await User.findOne({email});
   if(exitUser){throw new Error("Email đã tồn tại")}
+  const roleUser =await Role.findOne({name:"user"})
+    if(!roleUser){throw new Error("Role user không tồn tại")};
   const createUser =await User.create(
     {
       full_name,
       email,
       password:await hashPassword(password),
-      role:roleId,
+      role:roleUser._id,
       createdBy:"admin",
       isOTPEmail: true,
-      branch:branch||null
     }
   )
   return createUser;

@@ -6,6 +6,6 @@ import userBranchRouter from "./userBranchRouter.js";
 const router = express.Router()
 router.use("/auth",authRouter)
 router.use("/user",userRouter)
-router.use("/staff",userBranchRouter)
+router.use("/userBranch",userBranchRouter)
 router.use("/collection",collectionRouter)
 export default router;

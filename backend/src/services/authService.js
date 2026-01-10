@@ -63,7 +63,6 @@ export const signinService =async (payload)=>{
         throw error;
     }
 }
-
 //  gửi OTP
 export const sendOtpService  = async(email)=>{
     const exitUser = await User.findOne({email});
