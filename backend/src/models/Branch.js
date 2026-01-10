@@ -16,6 +16,10 @@ const BranchSchema= new mongoose.Schema(
             lat: { type: Number, required: true },
             lng: { type: Number, required: true }
         },
+        deletedAt:{
+            type:Date,
+            default:null
+        }
     },
     {timestamps:true,versionKey:false}
 )
