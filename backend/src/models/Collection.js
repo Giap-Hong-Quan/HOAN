@@ -4,9 +4,10 @@ const CollectionSchema = new mongoose.Schema(
     {
         name:{
             type:String,
-            unique:true,
+            unique:true,          // unique index ,k trùng and index truy vấn nhanh 
             required:true,
         },
+    
         banner_url:{
             type:String,
             required:true,
@@ -22,5 +23,4 @@ const CollectionSchema = new mongoose.Schema(
     },
     {timestamps:true,versionKey:false}
 )
-
 export default mongoose.model("Collection",CollectionSchema);

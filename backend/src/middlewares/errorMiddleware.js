@@ -10,6 +10,6 @@ export const errorHandle = (err,req,res,next)=>{
     }
     return res.status(500).json({
         success:false,
-        message:'Lỗi máy chủ nội bộ',
+        message: err.message||'Lỗi máy chủ nội bộ',
     });
 }

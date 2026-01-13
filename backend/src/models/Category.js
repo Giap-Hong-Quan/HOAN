@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import removeVietnameseTones from "../config/removeVietnameseTones.js";
 
 const CategorySchema =new mongoose.Schema(
     {
@@ -6,6 +7,10 @@ const CategorySchema =new mongoose.Schema(
             type:String,
             required:true,
             trim:true
+        },
+        noAccentName:{
+            type:String,         // index truy vấn nhanh 
+            index:true
         },
         slug: { 
             type: String,
@@ -27,5 +32,9 @@ const CategorySchema =new mongoose.Schema(
         }
     },{timestamps:true,versionKey:false}
 )
-
+CategorySchema.pre("save", async function() {
+    if (this.name) {
+        this.noAccentName = removeVietnameseTones(this.name);
+    }
+});
 export default mongoose.model("Category",CategorySchema);
